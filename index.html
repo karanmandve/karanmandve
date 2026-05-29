@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karan Mandve | Premium Portfolio</title>
+    
+    <meta name="description" content="Portfolio of Karan Mandve, Full Stack Developer specializing in .NET Core, Angular, AWS, and modern web technologies.">
+    <meta name="keywords" content="Karan Mandve, Full Stack Developer, .NET Developer, Angular, AWS, Cloud Enthusiast, Software Engineer">
+    <meta name="author" content="Karan Mandve">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%236366F1'/><text x='50' y='72' font-family='sans-serif' font-size='65' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%236366F1'/><text x='50' y='72' font-family='sans-serif' font-size='65' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-color: #03050C;
+            --primary: #6366F1;
+            --secondary: #8B5CF6;
+            --accent: #06B6D4;
+            --text-main: #FFFFFF;
+            --text-muted: #9CA3AF;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom cursor takes over */
+        }
+
+        /* Removed native smooth scroll to allow Lenis to handle it perfectly */
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        ::selection {
+            background: rgba(99, 102, 241, 0.3);
+            color: white;
+        }
+
+        /* Premium Grain/Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9997;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           CUSTOM CURSOR & EFFECTS
+           ========================================================================== */
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-main);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), width 0.2s, height 0.2s;
+        }
+
+        .hover-active .cursor-dot {
+            transform: translate(-50%, -50%) scale(0);
+        }
+        
+        .hover-active .cursor-outline {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.1);
+            border-color: transparent;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Background Aurora Effects */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+
+        .aurora-blob {
+            position: absolute;
+            filter: blur(140px);
+            opacity: 0.3;
+            animation: float 25s infinite alternate ease-in-out;
+            border-radius: 50%;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--primary); }
+        .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: var(--secondary); animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: var(--accent); animation-duration: 30s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(15%, 10%) scale(1.1); }
+            66% { transform: translate(-10%, 20%) scale(0.9); }
+            100% { transform: translate(-5%, -5%) scale(1.05); }
+        }
+
+        /* Scroll Progress */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 10001;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* ==========================================================================
+           TYPOGRAPHY & UTILITIES
+           ========================================================================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            background: linear-gradient(180deg, #fff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255,255,255,0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card:hover {
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-8px);
+        }
+
+        /* Premium Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .magnetic-wrap {
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            background: #E5E7EB;
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            transform: scale(1.02);
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 8rem 0;
+        }
+
+        /* ==========================================================================
+           NAVIGATION
+           ========================================================================== */
+        nav {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(3, 5, 12, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 100px;
+            padding: 0.5rem 0.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        nav.scrolled {
+            background: rgba(3, 5, 12, 0.8);
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            top: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a.active {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .dynamic-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10B981;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
+        .typing-container {
+            font-size: 1.5rem;
+            font-family: var(--font-display);
+            color: var(--primary);
+            margin-bottom: 2rem;
+            height: 2.5rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.5rem;
+            background-color: var(--primary);
+            margin-left: 0.2rem;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        /* ==========================================================================
+           ABOUT SECTION
+           ========================================================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .about-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .about-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* ==========================================================================
+           TECH STACK SECTION
+           ========================================================================== */
+        .tech-category { margin-bottom: 4rem; }
+        
+        .tech-category-title {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tech-item:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+
+        .tech-item i {
+            font-size: 2.5rem;
+            color: var(--text-muted);
+            transition: color 0.4s;
+        }
+        
+        .tech-item:hover i { color: var(--text-main); }
+        .tech-item span { font-size: 0.85rem; font-weight: 500; }
+
+        /* ==========================================================================
+           GITHUB DASHBOARD
+           ========================================================================== */
+        .github-stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .github-stats-row img {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .github-stats-row img:hover { transform: translateY(-5px); }
+
+        .stats-counters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2.5rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==========================================================================
+           PROJECTS SECTION
+           ========================================================================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+
+        .project-img-placeholder {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255,255,255,0.2);
+            transition: all 0.4s;
+        }
+
+        .project-card:hover .project-img-placeholder {
+            background: rgba(255,255,255,0.05);
+            color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.4rem 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 100px;
+            color: var(--text-main);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a { flex: 1; text-align: center; }
+
+        /* ==========================================================================
+           CURRENT FOCUS
+           ========================================================================== */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .focus-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .focus-item i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 1rem;
+            border-radius: 16px;
+        }
+
+        /* ==========================================================================
+           FOOTER & CONTACT
+           ========================================================================== */
+        .contact-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 100px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            background: white;
+            color: black;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 6rem;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3.5rem; }
+            .nav-links { display: none; } /* Could add hamburger here, kept simple */
+            nav { width: 90%; border-radius: 20px; }
+            .cursor-dot, .cursor-outline { display: none; }
+            * { cursor: auto; }
+            section { padding: 5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div id="scroll-progress"></div>
+
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <nav id="navbar">
+        <ul class="nav-links">
+            <li><a href="#hero" class="active hover-target">Home</a></li>
+            <li><a href="#about" class="hover-target">About</a></li>
+            <li><a href="#tech" class="hover-target">Skills</a></li>
+            <li><a href="#projects" class="hover-target">Projects</a></li>
+            <li><a href="#stats" class="hover-target">Stats</a></li>
+            <li><a href="#contact" class="hover-target">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="hero" class="container">
+            <div class="hero-content reveal">
+                <div class="dynamic-badge">
+                    <div class="status-dot"></div>
+                    <span id="dynamic-date">Available for Work</span>
+                </div>
+                <h1 class="hero-title">Karan Mandve</h1>
+                <div class="typing-container">
+                    <span class="typed-text"></span><span class="cursor"></span>
+                </div>
+                <p class="hero-desc">
+                    Software Engineer specializing in scalable enterprise applications. Bridging the gap between design and robust backend architecture using modern cloud technologies.
+                </p>
+                <div class="hero-buttons">
+                    <div class="magnetic-wrap magnetic">
+                        <a href="#projects" class="btn btn-primary hover-target">View Projects</a>
+                    </div>
+                    <div class="magnetic-wrap magnetic">
+                        <a href="#contact" class="btn btn-outline hover-target">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2 class="section-title reveal">About Me</h2>
+            <div class="about-grid">
+                <div class="glass-card about-card reveal delay-1 hover-target">
+                    <div class="about-icon"><i class="ph ph-code"></i></div>
+                    <h3>Full Stack Focus</h3>
+                    <p class="text-muted">Passionate about building scalable enterprise applications working professionally with modern web technologies, .NET Core, and Angular.</p>
+                </div>
+                <div class="glass-card about-card reveal delay-2 hover-target">
+                    <div class="about-icon"><i class="ph ph-cloud-arrow-up"></i></div>
+                    <h3>Cloud Enthusiast</h3>
+                    <p class="text-muted">Exploring cloud architecture, microservices, and serverless solutions particularly with AWS Lambda and AWS ecosystem.</p>
+                </div>
+                <div class="glass-card about-card reveal delay-3 hover-target">
+                    <div class="about-icon"><i class="ph ph-brain"></i></div>
+                    <h3>Continuous Learner</h3>
+                    <p class="text-muted">Constantly learning and adapting to new technologies, software architecture patterns, and AI integration strategies.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="container">
+            <h2 class="section-title reveal">Technology Arsenal</h2>
+            
+            <div class="tech-category reveal">
+                <h3 class="tech-category-title">Frontend</h3>
+                <div class="tech-grid">
+                    <div class="tech-item hover-target"><i class="ph ph-file-code"></i><span>Angular</span></div>
+                    <div class="tech-item hover-target"><i class="ph ph-file-js"></i><span>JavaScript</span></div>
+                    <div class="tech-item hover-target"><i class="ph ph-file-ts"></i><span>TypeScript</span></div>
+                    <div class="tech-item hover-target"><i class="ph ph-file-html"></i><span>HTML/CSS</span></div>
+                </div>
+            </div>
+
+            <div class="tech-category reveal">
+                <h3 class="tech-category-title">Backend & Cloud</h3>
+                <div class="tech-grid">
+                    <div class="tech-item hover-target"><i class="ph ph-code-block"></i><span>C# & .NET</span></div>
+                    <div class="tech-item hover-target"><i class="ph ph-database"></i><span>SQL Server</span></div>
+                    <div class="tech-item hover-target"><i class="ph ph-amazon-logo"></i><span>AWS Cloud</span></div>
+                    <div class="tech-item hover-target"><i class="ph ph-docker-logo"></i><span>Docker</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="container">
+            <h2 class="section-title reveal">Selected Works</h2>
+            <div class="projects-grid">
+                
+                <div class="glass-card project-card reveal delay-1 hover-target">
+                    <div class="project-img-placeholder"><i class="ph ph-heartbeat"></i></div>
+                    <h3 class="project-title">EHR Healthcare Portal</h3>
+                    <div class="project-tags">
+                        <span class="tag">.NET Core</span><span class="tag">Angular</span><span class="tag">AWS</span>
+                    </div>
+                    <p class="project-desc">Enterprise healthcare application featuring patient management, provider workflows, appointments, and secure communication.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn btn-outline hover-target">View Case Study</a>
+                    </div>
+                </div>
+
+                <div class="glass-card project-card reveal delay-2 hover-target">
+                    <div class="project-img-placeholder"><i class="ph ph-file-text"></i></div>
+                    <h3 class="project-title">AWS Document Processing</h3>
+                    <div class="project-tags">
+                        <span class="tag">AWS Lambda</span><span class="tag">Textract</span><span class="tag">S3</span>
+                    </div>
+                    <p class="project-desc">Serverless AWS solution for automated document processing, text extraction, and event-driven data flow.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn btn-outline hover-target">View Case Study</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="stats" class="container">
+            <h2 class="section-title reveal">Metrics & Impact</h2>
+            
+            <div class="stats-counters reveal">
+                <div class="glass-card stat-box hover-target">
+                    <div class="stat-number counter" data-target="150">0</div>
+                    <div class="text-muted">Total Contributions</div>
+                </div>
+                <div class="glass-card stat-box hover-target">
+                    <div class="stat-number counter" data-target="25">0</div>
+                    <div class="text-muted">Repositories</div>
+                </div>
+                <div class="glass-card stat-box hover-target">
+                    <div class="stat-number counter" data-target="15">0</div>
+                    <div class="text-muted">Projects Shipped</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="focus" class="container">
+            <h2 class="section-title reveal">Current Focus</h2>
+            <div class="glass-card reveal">
+                <div class="focus-grid">
+                    <div class="focus-item hover-target">
+                        <i class="ph ph-cloud-network"></i>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem;">Cloud Native</h3>
+                            <p class="text-muted" style="font-size:0.9rem;">Designing scalable systems for cloud environments.</p>
+                        </div>
+                    </div>
+                    <div class="focus-item hover-target">
+                        <i class="ph ph-lightning"></i>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem;">Serverless Architecture</h3>
+                            <p class="text-muted" style="font-size:0.9rem;">Event-driven computing with AWS Lambda.</p>
+                        </div>
+                    </div>
+                    <div class="focus-item hover-target">
+                        <i class="ph ph-robot"></i>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem;">AI Integration</h3>
+                            <p class="text-muted" style="font-size:0.9rem;">Implementing ML models in modern web apps.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="container" style="text-align: center;">
+            <div class="reveal">
+                <h2 class="section-title" style="margin-bottom: 1rem;">Let's Build Together</h2>
+                <p class="text-muted" style="max-width: 600px; margin: 0 auto 3rem;">
+                    Currently open for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                </p>
+                
+                <div class="contact-cards">
+                    <div class="magnetic-wrap magnetic">
+                        <a href="https://linkedin.com/in/karanmandve" target="_blank" class="contact-card hover-target">
+                            <i class="ph ph-linkedin-logo"></i> LinkedIn
+                        </a>
+                    </div>
+                    <div class="magnetic-wrap magnetic">
+                        <a href="https://github.com/karanmandve" target="_blank" class="contact-card hover-target">
+                            <i class="ph ph-github-logo"></i> GitHub
+                        </a>
+                    </div>
+                    <div class="magnetic-wrap magnetic">
+                        <a href="mailto:karanmandve1234@gmail.com" class="contact-card hover-target">
+                            <i class="ph ph-envelope-simple"></i> Email Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Karan Mandve. Designed for the future.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Dynamic Dates ---
+            const yearSpan = document.getElementById('current-year');
+            const dateSpan = document.getElementById('dynamic-date');
+            
+            const currentDate = new Date();
+            yearSpan.textContent = currentDate.getFullYear();
+            
+            // Format: "Last updated: Month YYYY"
+            const options = { month: 'short', year: 'numeric' };
+            dateSpan.innerHTML = `Available for Work &middot; ${currentDate.toLocaleDateString('en-US', options)}`;
+
+            // --- 2. Lenis Smooth Scrolling (Apple/Vercel feel) ---
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+                infinite: false,
+            });
+
+            // Get scroll value for custom navigation/progress
+            lenis.on('scroll', (e) => {
+                // Scroll Progress Bar
+                const totalScroll = e.animatedScroll;
+                const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scroll = `${(totalScroll / windowHeight) * 100}%`;
+                document.getElementById('scroll-progress').style.width = scroll;
+
+                // Navbar blur effect
+                const navbar = document.getElementById('navbar');
+                if (totalScroll > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // Connect Lenis to anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    lenis.scrollTo(this.getAttribute('href'));
+                });
+            });
+
+            // --- 3. Custom Cursor ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            
+            if (window.matchMedia("(pointer: fine)").matches) {
+                window.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 150, fill: "forwards" });
+                });
+
+                document.querySelectorAll('.hover-target').forEach(target => {
+                    target.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+                    target.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+                });
+            }
+
+            // --- 4. Magnetic Buttons ---
+            const magneticElements = document.querySelectorAll('.magnetic');
+            
+            if (window.matchMedia("(pointer: fine)").matches) {
+                magneticElements.forEach((el) => {
+                    el.addEventListener('mousemove', (e) => {
+                        const position = el.getBoundingClientRect();
+                        const x = e.clientX - position.left - position.width / 2;
+                        const y = e.clientY - position.top - position.height / 2;
+                        
+                        // Pull the button slightly towards the cursor
+                        el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                        el.children[0].style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+                    });
+                    
+                    el.addEventListener('mouseleave', () => {
+                        el.style.transform = 'translate(0px, 0px)';
+                        el.children[0].style.transform = 'translate(0px, 0px)';
+                        el.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                        el.children[0].style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                        
+                        setTimeout(() => {
+                            el.style.transition = '';
+                            el.children[0].style.transition = '';
+                        }, 500);
+                    });
+                });
+            }
+
+            // --- 5. Typing Animation ---
+            const typedTextSpan = document.querySelector('.typed-text');
+            const textArray = ["Full Stack Developer", ".NET Specialist", "Cloud Architect", "Problem Solver"];
+            let textArrayIndex = 0;
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < textArray[textArrayIndex].length) {
+                    typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, 100);
+                } else {
+                    setTimeout(erase, 2000);
+                }
+            }
+
+            function erase() {
+                if (charIndex > 0) {
+                    typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(erase, 50);
+                } else {
+                    textArrayIndex = (textArrayIndex + 1) % textArray.length;
+                    setTimeout(type, 500);
+                }
+            }
+            setTimeout(type, 1000);
+
+            // --- 6. Scroll Reveal & Counters ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const counters = document.querySelectorAll('.counter');
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        
+                        // Counters
+                        if(entry.target.classList.contains('stats-counters')){
+                            counters.forEach(counter => {
+                                const target = +counter.getAttribute('data-target');
+                                let current = 0;
+                                const increment = target / 60; // Smooth 60 frames
+                                
+                                const updateCounter = () => {
+                                    current += increment;
+                                    if (current < target) {
+                                        counter.innerText = Math.ceil(current) + "+";
+                                        requestAnimationFrame(updateCounter);
+                                    } else {
+                                        counter.innerText = target + "+";
+                                    }
+                                };
+                                updateCounter();
+                            });
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // --- 7. Mouse Spotlight on Glass Cards ---
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+
+            // --- 8. Active Nav State Update ---
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= (sectionTop - 300)) current = section.getAttribute('id');
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
